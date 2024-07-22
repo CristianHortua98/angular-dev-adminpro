@@ -3,26 +3,20 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NopagesfoundComponent } from './pages/nopagesfound/nopagesfound.component';
-import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { SharedModule } from './shared/shared.module';
-import { ProgressComponent } from './pages/progress/progress.component';
-import { Grafica1Component } from './pages/grafica1/grafica1.component';
-import { PagesComponent } from './pages/pages.component';
+import { NopagesfoundComponent } from './nopagesfound/nopagesfound.component';
+import { PagesModule } from './pages/pages.module';
+import { AuthModule } from './auth/auth.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    NopagesfoundComponent,
-    DashboardComponent,
-    ProgressComponent,
-    Grafica1Component,
-    PagesComponent
+    NopagesfoundComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    SharedModule
+    PagesModule,
+    AuthModule
   ],
   providers: [],
   bootstrap: [AppComponent]
