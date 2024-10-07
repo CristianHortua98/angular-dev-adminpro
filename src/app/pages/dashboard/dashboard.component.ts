@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
+import { AuthService } from '../../services/auth.service';
+import { User } from '../../models/user.model';
 
 @Component({
   selector: 'app-dashboard',
@@ -6,5 +8,6 @@ import { Component } from '@angular/core';
   styles: ``
 })
 export class DashboardComponent {
+
 
 }

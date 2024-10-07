@@ -45,6 +45,7 @@ export class LoginComponent {
           }else{
             localStorage.removeItem('username');
           }
+          this.router.navigateByUrl('/dashboard');
 
         },
         error: err => {
