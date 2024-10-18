@@ -1,5 +1,6 @@
-import { Component, inject } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
+import { environments } from '../../../environments/environments';
 
 @Component({
   selector: 'app-header',
@@ -8,8 +9,16 @@ import { AuthService } from '../../services/auth.service';
 })
 export class HeaderComponent {
 
-  authService = inject(AuthService);
+  public baseUrl = environments.baseUrl;
 
+  public user = computed(() => this.authService.currentUser());
+  public imgUrl = computed(() => this.authService.imgUrl());
+
+  constructor(private authService:AuthService){
+
+    // this.imgUrl = authService.imageUrl;
+
+  }
 
   logout(){
 

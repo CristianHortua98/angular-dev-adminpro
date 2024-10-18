@@ -1,15 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { AuthService } from '../../services/auth.service';
+import { AuthStatus } from '../interfaces/auth-status.enum';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit{
 
   public formSubmitted = false;
   loginForm!: FormGroup;
@@ -25,6 +26,15 @@ export class LoginComponent {
       password: ['', [Validators.required, Validators.minLength(3)]],
       remember: [false]
     })
+
+  }
+
+  
+  ngOnInit(): void {
+
+    if(this.authService.authStatus() === AuthStatus.authenticated){
+      this.router.navigateByUrl('/dashboard');
+    }
 
   }
 
@@ -45,7 +55,7 @@ export class LoginComponent {
           }else{
             localStorage.removeItem('username');
           }
-          this.router.navigateByUrl('/dashboard');
+          this.router.navigateByUrl('/');
 
         },
         error: err => {

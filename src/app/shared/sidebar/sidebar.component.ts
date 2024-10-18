@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, computed } from '@angular/core';
 import { SidebarService } from '../../services/sidebar.service';
 import { AuthService } from '../../services/auth.service';
+import { environments } from '../../../environments/environments';
 
 @Component({
   selector: 'app-sidebar',
@@ -9,7 +10,11 @@ import { AuthService } from '../../services/auth.service';
 })
 export class SidebarComponent {
 
+  private baseUrl = environments.baseUrl;
+
   menuItems: any[] = [];
+  public user = computed(() => this.authService.currentUser());
+  public imgUrl = computed(() => this.authService.imgUrl());
 
   constructor(
     private sidebarService:SidebarService,
@@ -17,7 +22,7 @@ export class SidebarComponent {
   ){
 
     this.menuItems = sidebarService.menu;
-    // console.log(this.menuItems);
+    // this.imgUrl = authService.imageUrl;
 
   }
 

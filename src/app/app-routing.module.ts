@@ -9,10 +9,12 @@ import { NopagesfoundComponent } from './nopagesfound/nopagesfound.component';
 import { PagesComponent } from './pages/pages.component';
 import { PagesRoutingModule } from './pages/pages.routing';
 import { AuthRoutingModule } from './auth/auth.routing';
+import { isAuthenticatedGuard } from './auth/guards/is-authenticated.guard';
 
 const routes: Routes = [
   { 
     path: 'dashboard',
+    canActivate: [isAuthenticatedGuard],
     loadChildren: () => import ('./pages/pages.module').then((m) => m.PagesModule)
   },
   {

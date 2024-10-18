@@ -9,5 +9,22 @@ import { User } from '../../models/user.model';
 })
 export class DashboardComponent {
 
+  authService = inject(AuthService);
+  
+  public user = computed(() => this.authService.currentUser());
+
+
+  constructor(){
+    console.log('DashboardComponent initialized');
+  }
+
+  updateEmail(){
+
+    const email = 'correo@correo.com';
+
+    this.authService.updateEmailUser(email);
+
+  }
+
 
 }

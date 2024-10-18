@@ -7,13 +7,14 @@ import { Grafica1Component } from './grafica1/grafica1.component';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
 import { PromesasComponent } from './promesas/promesas.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
-import { authGuard } from '../auth/guards/auth.guard';
+import { ProfileComponent } from './profile/profile.component';
+import { isAuthenticatedGuard } from '../auth/guards/is-authenticated.guard';
 
 const routes: Routes = [
     {
         path: 'dashboard', 
         component: PagesComponent,
-        canActivate: [authGuard],
+        canActivate: [isAuthenticatedGuard],
         children: [
             { path: '', component: DashboardComponent, data: {titulo: 'Dashboard'} },
             { path: 'progress', component: ProgressComponent, data: {titulo: 'ProgressBar'} },
@@ -21,6 +22,7 @@ const routes: Routes = [
             { path: 'account-settings', component: AccountSettingsComponent, data: {titulo: 'Tema'} },
             { path: 'promesas', component: PromesasComponent, data: {titulo: 'Promesas'} },
             { path: 'rxjs', component: RxjsComponent, data: {titulo: 'RxJS'} },
+            { path: 'profile', component: ProfileComponent, data: {titulo: 'Profile'}}
             // { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
         ]
     }
