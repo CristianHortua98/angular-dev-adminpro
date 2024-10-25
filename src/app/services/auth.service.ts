@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { computed, inject, Injectable, signal } from '@angular/core';
-import { catchError, map, Observable, of, tap, throwError } from 'rxjs';
+import { catchError, delay, map, Observable, of, tap, throwError } from 'rxjs';
 import { environments } from '../../environments/environments';
 import { LoginForm } from '../auth/interfaces/login-form.interface';
 import { RegisterForm } from '../auth/interfaces/register-form.interface';
@@ -14,6 +14,7 @@ import { ProfileUpdateForm } from '../interfaces/profile-update.interface';
 import { Router } from '@angular/router';
 import { UpdateFileResponse } from '../interfaces/update-file-response.interface';
 import { FileUploadService } from './file-upload.service';
+import { UserListResponse } from '../auth/interfaces/user-list-response.interface';
 
 
 @Injectable({
@@ -47,18 +48,6 @@ export class AuthService {
     this.checkAuthStatus().subscribe();
   }
 
-
-  updateEmailUser(email: string){
-
-    const currentUser = this._currentUser();
-
-    this._currentUser.set({
-      ...currentUser,
-      email: email
-    })
-
-  }
-
   private setAuthentication(user:User, token: string): boolean{
 
     this._currentUser.set(user);
@@ -69,9 +58,32 @@ export class AuthService {
 
   }
 
+  private updateImgUser(filename: string){
+
+    const currentUser = this._currentUser();
+
+    this._currentUser.set({
+      ...currentUser,
+      img: filename
+    })
+
+  }
+
   get token(): string{
 
     return localStorage.getItem('token') || '';
+
+  }
+
+  get headers(){
+
+    return {
+
+      headers: {
+        'Authorization': `Bearer ${this.token}`
+      }
+
+    }
 
   }
 
@@ -168,27 +180,6 @@ export class AuthService {
 
   }
 
-  // get imageUrl(){
-
-  //   if(this.currentUser().img){
-  //     return `${this.baseUrl}/upload/users/${this.currentUser().img}`;
-  //   }else{
-  //       return `${this.baseUrl}/upload/users/no-image.png`;
-  //   }
-
-  // }
-
-  private updateImgUser(filename: string){
-
-    const currentUser = this._currentUser();
-
-    this._currentUser.set({
-      ...currentUser,
-      img: filename
-    })
-
-  }
-
   updateFile(archivo: File, type: 'users'|'hospitals'|'doctors', id: number){
 
     return this.fileUploadService.updateFile(archivo, type, id)
@@ -198,49 +189,33 @@ export class AuthService {
         }),
         map((resp) => resp)
       )
-      // .subscribe({
-      //   next: (resp) => {
-
-      //     this.updateImgUser(resp.filename);
-      //     return resp;
-
-      //     // const currentUser = this._currentUser();
-
-      //     // this._currentUser.set({
-      //     //   ...currentUser,
-      //     //   img: resp.filename
-      //     // });
-      //   }
-      // })
-
-    // const url = `${this.baseUrl}/upload/${type}/${id}`;
-
-    // const formData = new FormData();
-    // formData.append('file', archivo);
-
-    // return this.http.put<UpdateFileResponse>(url, formData, {
-    //   headers: {
-    //     'Authorization': `Bearer ${this.token}`
-    //   }
-    // })
-    // .pipe(
-    //   tap((resp) => {
-    //     const currentUser = this._currentUser();
-
-    //     // Actualizas el currentUser
-    //     this._currentUser.set({
-    //       ...currentUser,
-    //       img: resp.filename
-    //     });
-
-    //     // Mueves el console.log después de la actualización
-    //     console.log('Ingreso actualizado:', this._currentUser());
-    //   }),
-    //   map((resp) => {
-    //     return resp;
-    //   })
-    // )
   }
 
+  loadUsers(offset: number = 5){
+
+    const url = `${this.baseUrl}/auth/users?offset=${offset}`;
+
+    return this.http.get<UserListResponse>(url, this.headers)
+      .pipe(
+        // delay(3000)
+      )
+
+  }
+
+
+  deleteUser(user: User){
+
+    const url = `${this.baseUrl}/auth/delete-user/${user.id}`;
+
+    return this.http.delete(url, this.headers);
+
+  }
+
+
+  saveUser(user: User){
+
+    return this.http.patch<User>(`${this.baseUrl}/auth/update-user/${user.id}`, user, this.headers);
+
+  }
 
 }

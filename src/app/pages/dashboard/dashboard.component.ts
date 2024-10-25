@@ -18,13 +18,4 @@ export class DashboardComponent {
     console.log('DashboardComponent initialized');
   }
 
-  updateEmail(){
-
-    const email = 'correo@correo.com';
-
-    this.authService.updateEmailUser(email);
-
-  }
-
-
 }

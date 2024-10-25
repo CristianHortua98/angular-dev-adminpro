@@ -27,16 +27,6 @@ export class PromesasComponent implements OnInit {
 
   }
 
-
-
-  updateEmail(){
-
-    const email = 'correo@correo.com';
-
-    this.authService.updateEmailUser(email);
-
-  }
-
   getUsuarios(){
 
     const promesa = new Promise(resolve => {
