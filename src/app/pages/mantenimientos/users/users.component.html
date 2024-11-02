@@ -44,7 +44,7 @@
                                 @for (user of users; track $index) {
 
                                     <tr>
-                                        <td><img class="img-fluid cursor" [src]="user.img | userImage" alt="Avatar User" (click)="openModal(user)"></td>
+                                        <td><img class="img-fluid cursor" [src]="user.img | imageView : 'users'" alt="Avatar User" (click)="openModal(user)"></td>
                                         <td>{{ user.email }}</td>
                                         <td>{{ user.name }}</td>
                                         <td>{{ user.document }}</td>

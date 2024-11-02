@@ -16,6 +16,7 @@ import { UsersComponent } from './mantenimientos/users/users.component';
 import { DoctorsComponent } from './mantenimientos/doctors/doctors.component';
 import { HospitalsComponent } from './mantenimientos/hospitals/hospitals.component';
 import { UserImagePipe } from '../auth/pipes/user-image.pipe';
+import { DoctorComponent } from './mantenimientos/doctors/doctor.component';
 
 
 
@@ -32,7 +33,8 @@ import { UserImagePipe } from '../auth/pipes/user-image.pipe';
     UsersComponent,
     DoctorsComponent,
     HospitalsComponent,
-    UserImagePipe
+    UserImagePipe,
+    DoctorComponent
   ],
   imports: [
     CommonModule,

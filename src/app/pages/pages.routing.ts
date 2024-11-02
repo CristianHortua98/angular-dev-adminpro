@@ -12,6 +12,7 @@ import { isAuthenticatedGuard } from '../auth/guards/is-authenticated.guard';
 import { UsersComponent } from './mantenimientos/users/users.component';
 import { DoctorsComponent } from './mantenimientos/doctors/doctors.component';
 import { HospitalsComponent } from './mantenimientos/hospitals/hospitals.component';
+import { DoctorComponent } from './mantenimientos/doctors/doctor.component';
 
 const routes: Routes = [
     {
@@ -31,6 +32,7 @@ const routes: Routes = [
             //Mantenimientos
             {path: 'users', component: UsersComponent, data: {titulo: 'Users Application'}},
             {path: 'doctors', component: DoctorsComponent, data: {titulo: 'Doctors Application'}},
+            {path: 'doctor/:id', component: DoctorComponent, data: {titulo: 'Doctors Application'}},
             {path: 'hospitals', component: HospitalsComponent, data: {titulo: 'Hospitals Application'}},
         ]
     }
