@@ -13,9 +13,7 @@ export class DashboardComponent {
   
   public user = computed(() => this.authService.currentUser());
 
-
   constructor(){
-    console.log('DashboardComponent initialized');
   }
 
 }

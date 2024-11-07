@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environments } from '../../environments/environments';
+import { ListSearchTodoResponse } from '../interfaces/list-search-todo-response.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -30,6 +31,14 @@ export class SearchService {
     const url = `${this.baseUrl}/todo/tipo/${type}/${term}`;
 
     return this.http.get(url, this.headers);
+
+  }
+
+  searchTodo(term: string){
+
+    const url = `${this.baseUrl}/todo/${term}`;
+
+    return this.http.get<ListSearchTodoResponse>(url, this.headers);
 
   }
 

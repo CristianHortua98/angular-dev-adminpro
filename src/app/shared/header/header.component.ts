@@ -1,6 +1,7 @@
 import { Component, computed, inject } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { environments } from '../../../environments/environments';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -14,7 +15,10 @@ export class HeaderComponent {
   public user = computed(() => this.authService.currentUser());
   public imgUrl = computed(() => this.authService.imgUrl());
 
-  constructor(private authService:AuthService){
+  constructor(
+    private authService:AuthService,
+    private router: Router
+  ){
 
     // this.imgUrl = authService.imageUrl;
 
@@ -23,6 +27,17 @@ export class HeaderComponent {
   logout(){
 
     this.authService.logout();
+
+  }
+
+  search(term: string){
+
+    if(term.length === 0){
+      // this.router.navigateByUrl(`/dashboard`);
+      return;
+    }
+
+    this.router.navigateByUrl(`/dashboard/search/${term}`);
 
   }
 

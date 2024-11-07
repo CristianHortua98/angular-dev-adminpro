@@ -1,0 +1,98 @@
+<div class="row animated fadeIn fast">
+    <div class="col-4">
+        <div class="card">
+            <div class="card-body">
+                <h3>Users</h3>
+                @if (users.length === 0) {
+
+                    <div class="alert alert-warning" role="alert">
+                        <p class="mb-0">There are no Users with this term.</p>                    
+                    </div>
+                }@else if (users.length > 0) {
+
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Avatar</th>
+                                    <th>Name</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @for (user of users; track $index) {
+                                    <tr>
+                                        <td><img class="w100" [src]="user.img | imageView:'users'"></td>
+                                        <td>{{ user.name }}</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="col-4">
+        <div class="card">
+            <div class="card-body">
+                <h3>Hospitals</h3>
+                @if (hospitals.length === 0) {
+                    <div class="alert alert-warning" role="alert">
+                        <p class="mb-0">There are no Hospitals with this term.</p>                    
+                    </div>
+                }@else if (hospitals.length > 0) {
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Avatar</th>
+                                    <th>Name</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @for (hospital of hospitals; track $index) {
+                                    <tr>
+                                    <td><img class="w100" [src]="hospital.img | imageView:'hospitals'"></td>
+                                    <td>{{ hospital.name }}</td>
+                                </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="col-4">
+        <div class="card">
+            <div class="card-body">
+                <h3>Doctors</h3>
+                @if (doctors.length === 0) {
+                    <div class="alert alert-warning" role="alert">
+                        <p class="mb-0">There are no Doctors with this term.</p>                    
+                    </div>
+                }@else if (doctors.length > 0) {
+
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Avatar</th>
+                                    <th>Name</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @for (doctor of doctors; track $index) {
+                                    <tr (click)="showDoctor(doctor)">
+                                        <td><img class="w100" [src]="doctor.img | imageView:'doctors'"></td>
+                                        <td>{{ doctor.name }}</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

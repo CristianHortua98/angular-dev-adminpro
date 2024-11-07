@@ -17,11 +17,11 @@ export class SidebarComponent {
   public imgUrl = computed(() => this.authService.imgUrl());
 
   constructor(
-    private sidebarService:SidebarService,
+    public sidebarService:SidebarService,
     private authService: AuthService
   ){
 
-    this.menuItems = sidebarService.menu;
+    // this.menuItems = sidebarService.menu;
     // this.imgUrl = authService.imageUrl;
 
   }

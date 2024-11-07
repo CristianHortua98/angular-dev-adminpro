@@ -15,6 +15,7 @@ import { Router } from '@angular/router';
 import { UpdateFileResponse } from '../interfaces/update-file-response.interface';
 import { FileUploadService } from './file-upload.service';
 import { UserListResponse } from '../auth/interfaces/user-list-response.interface';
+import { MenuItem } from '../auth/interfaces/menu-item.interface';
 
 
 @Injectable({
@@ -48,12 +49,12 @@ export class AuthService {
     this.checkAuthStatus().subscribe();
   }
 
-  private setAuthentication(user:User, token: string): boolean{
+  private setAuthentication(user:User, token: string, menu: MenuItem[]): boolean{
 
     this._currentUser.set(user);
     this._authStatus.set(AuthStatus.authenticated);
     localStorage.setItem('token', token);
-
+    localStorage.setItem('menu', JSON.stringify(menu));
     return true;
 
   }
@@ -94,8 +95,8 @@ export class AuthService {
 
     return this.http.post<CreateUserResponse>(`${this.baseUrl}/auth/create-user`, userData)
       .pipe(
-        map(({user, token}) => {
-          this.setAuthentication(user, token);
+        map(({user, token, menu}) => {
+          this.setAuthentication(user, token, menu);
         })
         // catchError(err => {
         //   return throwError(() => err.error.message);
@@ -110,7 +111,7 @@ export class AuthService {
 
     return this.http.post<LoginResponse>(`${this.baseUrl}/auth/signin`, loginData)
       .pipe(
-        map(({user, token}) => this.setAuthentication(user, token)),
+        map(({user, token, menu}) => this.setAuthentication(user, token, menu)),
         // catchError(err => {
         //   return throwError(() => err.error.message);
         // })
@@ -134,8 +135,8 @@ export class AuthService {
         }
       })
       .pipe(
-        map(({user, token}) => {
-          this.setAuthentication(user, token);
+        map(({user, token, menu}) => {
+          this.setAuthentication(user, token, menu);
           return true;
         }),
         catchError(err => {
@@ -174,6 +175,7 @@ export class AuthService {
 
 
     localStorage.removeItem('token');
+    localStorage.removeItem('menu');
     this._currentUser.set(null);
     this._authStatus.set(AuthStatus.notAuthenticated);
     this.router.navigateByUrl('/login');
