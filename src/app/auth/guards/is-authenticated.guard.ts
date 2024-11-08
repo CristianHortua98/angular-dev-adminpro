@@ -1,4 +1,4 @@
-import { CanActivateFn, Router } from '@angular/router';
+import { CanActivateFn, CanLoadFn, CanMatchFn, Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { inject } from '@angular/core';
 import { AuthStatus } from '../interfaces/auth-status.enum';
@@ -21,3 +21,22 @@ export const isAuthenticatedGuard: CanActivateFn = (route, state) => {
   )
   
 };
+
+
+export const canMatchGuard: CanMatchFn = () => {
+
+  const authService = inject(AuthService);
+  const router = inject(Router);
+
+  return authService.checkAuthStatus().pipe(
+    map(isAuthenticated => {
+      if (isAuthenticated) {
+        return true;
+      } else {
+        router.navigateByUrl('/login');
+        return false;
+      }
+    })
+  );
+
+}
