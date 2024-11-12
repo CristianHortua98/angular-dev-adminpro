@@ -129,11 +129,7 @@ export class AuthService {
       return of(false);
     }
 
-    return this.http.get<CheckTokenResponse>(`${this.baseUrl}/auth/check-token`, {
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      })
+    return this.http.get<CheckTokenResponse>(`${this.baseUrl}/auth/check-token`)
       .pipe(
         map(({user, token, menu}) => {
           this.setAuthentication(user, token, menu);
@@ -150,11 +146,7 @@ export class AuthService {
 
   updateProfile(profileUpdateForm: ProfileUpdateForm){
 
-    return this.http.patch<User>(`${this.baseUrl}/auth/update-user/${this.currentUser().id}`, profileUpdateForm, {
-      headers: {
-        'Authorization': `Bearer ${this.token}`
-      }
-    })
+    return this.http.patch<User>(`${this.baseUrl}/auth/update-user/${this.currentUser().id}`, profileUpdateForm)
       .pipe(
         map(({name, email}) => {
 
@@ -197,7 +189,7 @@ export class AuthService {
 
     const url = `${this.baseUrl}/auth/users?offset=${offset}`;
 
-    return this.http.get<UserListResponse>(url, this.headers)
+    return this.http.get<UserListResponse>(url)
       .pipe(
         // delay(3000)
       )
@@ -209,14 +201,14 @@ export class AuthService {
 
     const url = `${this.baseUrl}/auth/delete-user/${user.id}`;
 
-    return this.http.delete(url, this.headers);
+    return this.http.delete(url);
 
   }
 
 
   saveUser(user: User){
 
-    return this.http.patch<User>(`${this.baseUrl}/auth/update-user/${user.id}`, user, this.headers);
+    return this.http.patch<User>(`${this.baseUrl}/auth/update-user/${user.id}`, user);
 
   }
 

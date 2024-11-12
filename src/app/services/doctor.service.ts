@@ -36,7 +36,7 @@ export class DoctorService {
 
     const url = `${this.baseUrl}/doctors/list-doctors?offset=${offset}`;
 
-    return this.http.get<ListDoctorsResponse>(url, this.headers);
+    return this.http.get<ListDoctorsResponse>(url);
 
   }
 
@@ -44,7 +44,7 @@ export class DoctorService {
 
     const url = `${this.baseUrl}/doctors/create-doctor`;
 
-    return this.http.post(url, doctor, this.headers);
+    return this.http.post(url, doctor);
 
   }
 
@@ -52,7 +52,7 @@ export class DoctorService {
 
     const url = `${this.baseUrl}/doctors/update-doctor/${id}`;
 
-    return this.http.patch(url, doctor, this.headers);
+    return this.http.patch(url, doctor);
 
   }
 
@@ -60,7 +60,7 @@ export class DoctorService {
 
     const url = `${this.baseUrl}/doctors/delete-doctor/${id}`;
 
-    return this.http.delete(url, this.headers);
+    return this.http.delete(url);
 
   }
 
@@ -68,7 +68,7 @@ export class DoctorService {
 
     const url = `${this.baseUrl}/doctors/${id}`;
 
-    return this.http.get(url, this.headers);
+    return this.http.get(url);
 
   }
 
